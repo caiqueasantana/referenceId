@@ -1,63 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obtenha o Reference ID do Boleto Bancário</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-        }
-
-        button {
-            width: 100%;
-            background-color: #00008B;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        button:hover {
-            background-color: #0000FF;
-        }
-
-        #result {
-            background-color: #ffffff;
-            padding: 15px;
-            text-align: left;
-            margin-top: 15px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -74,39 +21,6 @@
         </div>
     </div>
 
-    <script>
-        function identificarSepararReferenceID() {
-            var codigoBoleto = document.getElementById("codigo_boleto").value;
-            codigoBoleto = codigoBoleto.replace(/\s/g, "");
-            codigoBoleto = codigoBoleto.replace(/\D/g, "");
-
-            var quantidadeDigitos = codigoBoleto.length;
-
-            if (quantidadeDigitos >= 47 && quantidadeDigitos <= 48) {
-                var referenceID = "";
-                var resultado = "";
-
-                if (codigoBoleto.startsWith("104")) {
-                    referenceID = codigoBoleto.slice(17, 19) + codigoBoleto.slice(21, 30);
-                    resultado = "Boleto: Caixa";
-                } else if (codigoBoleto.startsWith("237")) {
-                    referenceID = codigoBoleto.slice(11, 20) + codigoBoleto.slice(21, 23);
-                    resultado = "Boleto: Bradesco";
-                } else if (codigoBoleto.startsWith("422")) {
-                    referenceID = codigoBoleto.slice(21, 30);
-                    resultado = "Boleto: Safra<br>Atenção: Para critério de busca, selecione 'Referência NSU'.";
-                } else {
-                    resultado = "Banco não identificado.";
-                }
-
-                document.getElementById("reference_id").innerHTML = "<br>Reference ID: " + referenceID;
-                document.getElementById("result").innerHTML = resultado;
-            } else if (quantidadeDigitos > 48) {
-                document.getElementById("result").innerHTML = "Há dígitos a mais! Revise o número do boleto.";
-            } else if (quantidadeDigitos < 47) {
-                document.getElementById("result").innerHTML = "Há menos dígitos! Revise o número do boleto.";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
